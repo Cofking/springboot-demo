@@ -1,0 +1,9 @@
+server:
+  port: 8888
+spring:
+  # 模板
+  thymeleaf:
+    mode: HTML5
+    encoding: utf-8
+
+
