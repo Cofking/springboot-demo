@@ -5,5 +5,9 @@ spring:
   thymeleaf:
     mode: HTML5
     encoding: utf-8
-
+  mvc:
+    contentnegotiation:
+      favor-parameter: true  #开启 请求 参数 内容协商模式  可以在 url后  传入 format= 类型  来 返回类型。
+#      media-types:
+#        gg: application/x-guigu
 

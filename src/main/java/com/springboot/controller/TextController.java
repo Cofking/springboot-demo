@@ -1,13 +1,12 @@
 package com.springboot.controller;
 
-import lombok.Data;
+import com.springboot.entity.A;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,19 +130,26 @@ public class TextController {
 
 
 
+    public static void main(String[] args) {
+
+
+
+    }
+
+    /**
+     *  测试内容协商   内容协商：根据不同的Accept 响应不同格式的数据
+      */
+    @ResponseBody
+    @GetMapping(value = "/test/A")
+    public A getA(){
+        A a=new A();
+        a.setAge(15);
+        a.setName("zhangsan");
+        return  a;
+    }
 
 
 
 
 
-
-
-
-
-}
-
-@Data
-class A{
-    public String name;
-    public int age;
 }

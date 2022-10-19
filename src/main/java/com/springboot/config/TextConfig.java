@@ -1,8 +1,14 @@
 package com.springboot.config;
 
+import com.springboot.converter.DIYMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 
 @Configuration
@@ -22,7 +28,7 @@ public class TextConfig {
 
 //    @Bean
 //    public WebMvcConfigurer webMvcConfigurer(){
-//
+
 //        return new WebMvcConfigurer() {
 //            //自定义转换器  前端传过来的数据 根据自定义转换器 绑定数据
 //            @Override
@@ -30,6 +36,16 @@ public class TextConfig {
 //                registry.addConverter();
 //            }
 //        };
+
+//        return new WebMvcConfigurer() {
+
+//            //自定义消息响应处理器
+//            @Override
+//            public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+//                converters.add(new DIYMessageConverter());
+//            }
+//        };
+
 //    }
 
 
