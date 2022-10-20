@@ -5,7 +5,7 @@
     <title>首页</title>
 </head>
 <body>
-<span ><img src="latala.gif" onclick="f()" class="abc"></span>
+<span ><img src="latala.gif" onclick="f()" class="abc"></span> <img id="img" src="/" alt="图片"/>
 <h1 th:text="${Penson.name}"></h1>
 <h1 th:text="${Penson.age}"></h1>
 
@@ -60,7 +60,8 @@
         console.log(value)
     }
     function f() {
-        alert('点我干嘛')
+        // alert('点我干嘛')
+        document.getElementById("img").src="/file";
     }
 </script>
 <style>

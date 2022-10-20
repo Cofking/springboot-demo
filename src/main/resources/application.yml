@@ -6,8 +6,8 @@ spring:
     mode: HTML5
     encoding: utf-8
   mvc:
-    contentnegotiation:
+    contentnegotiation:  #  内容协商管理器
       favor-parameter: true  #开启 请求 参数 内容协商模式  可以在 url后  传入 format= 类型  来 返回类型。
-#      media-types:
-#        gg: application/x-guigu
+      media-types:   # 在 contentNegotiationManager 内容协商管理器中  参数解析策略中   添加新的 媒体类型  使  format=自定义类型   调用自定义  converter
+        gg: application/x-guigu
 

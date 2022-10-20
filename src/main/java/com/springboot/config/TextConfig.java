@@ -26,8 +26,8 @@ public class TextConfig {
         return hiddenHttpMethodFilter;
     }
 
-//    @Bean
-//    public WebMvcConfigurer webMvcConfigurer(){
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer(){
 
 //        return new WebMvcConfigurer() {
 //            //自定义转换器  前端传过来的数据 根据自定义转换器 绑定数据
@@ -37,16 +37,16 @@ public class TextConfig {
 //            }
 //        };
 
-//        return new WebMvcConfigurer() {
+        return new WebMvcConfigurer() {
 
-//            //自定义消息响应处理器
-//            @Override
-//            public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-//                converters.add(new DIYMessageConverter());
-//            }
-//        };
+            //自定义消息响应处理器
+            @Override
+            public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+                converters.add(new DIYMessageConverter());
+            }
+        };
 
-//    }
+    }
 
 
 }

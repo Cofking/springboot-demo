@@ -1,6 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.entity.A;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -148,7 +149,13 @@ public class TextController {
         return  a;
     }
 
-
+    @ResponseBody
+    @GetMapping("/file")
+    public FileSystemResource file (){
+        //读取文件 返回文件资源  查看 消息转换器 使用的哪个转换器  体验流程。      结果   ——————》  使用   ResourceHttpMessageConverter  解析 文件资源流
+        FileSystemResource fr=new FileSystemResource("D:\\1.ico");
+        return  fr;
+    }
 
 
 
