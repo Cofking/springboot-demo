@@ -1,11 +1,14 @@
 package com.springboot.config;
 
 import com.springboot.converter.DIYMessageConverter;
+import com.springboot.interceptor.TestInterceptorA;
+import com.springboot.interceptor.TestInterceptorB;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -14,6 +17,11 @@ import java.util.List;
 @Configuration
 public class TextConfig {
 
+    @Autowired
+    TestInterceptorA testInterceptorA;
+
+    @Autowired
+    TestInterceptorB testInterceptorB;
     /**
      * 自定义表单rest风格请求 时候 附带的自定义隐藏参数--该参数数值是请求的方式字符串 然后请求被HiddenHttpMethodFilter拦截
       * @return
@@ -44,9 +52,19 @@ public class TextConfig {
             public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
                 converters.add(new DIYMessageConverter());
             }
+
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(testInterceptorA).addPathPatterns("/**") //拦截所有请求
+                        .excludePathPatterns("/img/**");//放行
+                registry.addInterceptor(testInterceptorB).addPathPatterns("/**") //拦截所有请求
+                        .excludePathPatterns("/img/**");//放行
+            }
         };
 
     }
+
+
 
 
 }

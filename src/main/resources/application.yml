@@ -10,4 +10,4 @@ spring:
       favor-parameter: true  #开启 请求 参数 内容协商模式  可以在 url后  传入 format= 类型  来 返回类型。
       media-types:   # 在 contentNegotiationManager 内容协商管理器中  参数解析策略中   添加新的 媒体类型  使  format=自定义类型   调用自定义  converter
         gg: application/x-guigu
-
+      # 所以参数协商 可以使用   format=gg 来指定 使用 application/x-guigu 类型，去调用  application/x-guigu 的解析器 需要添加 进配置文件中。

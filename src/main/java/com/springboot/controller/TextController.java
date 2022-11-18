@@ -153,7 +153,7 @@ public class TextController {
     @GetMapping("/file")
     public FileSystemResource file (){
         //读取文件 返回文件资源  查看 消息转换器 使用的哪个转换器  体验流程。      结果   ——————》  使用   ResourceHttpMessageConverter  解析 文件资源流
-        FileSystemResource fr=new FileSystemResource("D:\\1.ico");
+        FileSystemResource fr=new FileSystemResource("src/main/resources/static/img/latala.gif");
         return  fr;
     }
 
