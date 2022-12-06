@@ -5,9 +5,12 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +158,37 @@ public class TextController {
         //读取文件 返回文件资源  查看 消息转换器 使用的哪个转换器  体验流程。      结果   ——————》  使用   ResourceHttpMessageConverter  解析 文件资源流
         FileSystemResource fr=new FileSystemResource("src/main/resources/static/img/latala.gif");
         return  fr;
+    }
+
+    /**
+     * MultipartFile 自动封装上传过来的文件
+     * @param headerImg
+     * @param photos
+     * @return
+     */
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public String upload(
+                         @RequestPart("headerImg") MultipartFile headerImg,
+                         @RequestPart("photos") MultipartFile[] photos) throws IOException {
+        if(!headerImg.isEmpty()){
+            //保存到文件服务器，OSS服务器
+            String originalFilename = headerImg.getOriginalFilename(); //获取文件名
+            headerImg.transferTo(new File("D:\\cache\\"+originalFilename));
+        }
+        int a=1/0;
+        if(photos.length > 0){
+            for (MultipartFile photo : photos) {
+                if(!photo.isEmpty()){
+                    String originalFilename = photo.getOriginalFilename(); //获取文件名
+                    photo.transferTo(new File("D:\\cache\\"+originalFilename));
+                }
+            }
+        }
+
+
+        return "success";
     }
 
 

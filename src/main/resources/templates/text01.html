@@ -52,7 +52,11 @@
     邮箱：<input type="text" name="emile" value=""/>
     <input type="submit" VALUE="提交">
 </form>
-<form></form>
+<form method="post" action="/upload" enctype="multipart/form-data">
+    <input type="file" name="headerImg"><br>
+    <input type="file" name="photos" multiple>   多文件上传<br>
+    <input type="submit" value="提交">
+</form>
 </body>
 </html>
 <script>
