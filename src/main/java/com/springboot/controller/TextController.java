@@ -1,6 +1,7 @@
 package com.springboot.controller;
 
 import com.springboot.entity.A;
+import com.springboot.excetion.ResponseStatusDIYException;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -177,7 +178,10 @@ public class TextController {
             String originalFilename = headerImg.getOriginalFilename(); //获取文件名
             headerImg.transferTo(new File("D:\\cache\\"+originalFilename));
         }
-        int a=1/0;
+//        int a=1/0;
+        if(!headerImg.isEmpty()){ //测试 @ResponseStatus+自定义异常
+            throw new ResponseStatusDIYException();
+        }
         if(photos.length > 0){
             for (MultipartFile photo : photos) {
                 if(!photo.isEmpty()){
