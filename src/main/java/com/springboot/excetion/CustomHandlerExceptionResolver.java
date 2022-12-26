@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 自定义异常处理器
+ */
 @Order(value = Ordered.HIGHEST_PRECEDENCE) //最高优先级 可以作为默认的全局异常处理规则
 @Component
 public class CustomHandlerExceptionResolver implements HandlerExceptionResolver {
