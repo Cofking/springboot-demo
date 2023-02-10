@@ -18,7 +18,8 @@ import java.util.List;
 public class DIYMessageConverter implements HttpMessageConverter<A> {
 
     /**
-     *   能否将clazz 类型数据 读成 mediaType 类型   （读取）
+     * 能否将clazz 类型数据 读成 mediaType 类型   （读取）
+     *
      * @param clazz
      * @param mediaType
      * @return
@@ -30,6 +31,7 @@ public class DIYMessageConverter implements HttpMessageConverter<A> {
 
     /**
      * 能不能 将 clazz 类型 写成 mediaType  （输出）
+     *
      * @param clazz
      * @param mediaType
      * @return
@@ -42,8 +44,9 @@ public class DIYMessageConverter implements HttpMessageConverter<A> {
 
     /**
      * 服务器要统计所有 MessageConverter 能写出哪些内容的类型
-     *
+     * <p>
      * 也就是 需要返回服务器一个 内容类型 供服务器 使用   application/x-guigu
+     *
      * @return
      */
     @Override
@@ -54,6 +57,7 @@ public class DIYMessageConverter implements HttpMessageConverter<A> {
 
     /**
      * 读
+     *
      * @param clazz
      * @param inputMessage
      * @return
@@ -67,6 +71,7 @@ public class DIYMessageConverter implements HttpMessageConverter<A> {
 
     /**
      * 将读到的数据写出
+     *
      * @param a
      * @param contentType
      * @param outputMessage
@@ -77,7 +82,7 @@ public class DIYMessageConverter implements HttpMessageConverter<A> {
     public void write(A a, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
 
         //自定义协议数据写出
-        String data=a.getName()+";"+a.getAge()+";";
+        String data = a.getName() + ";" + a.getAge() + ";";
 
         OutputStream body = outputMessage.getBody();
         body.write(data.getBytes());

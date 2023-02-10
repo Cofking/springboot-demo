@@ -20,7 +20,7 @@ public class CustomHandlerExceptionResolver implements HandlerExceptionResolver 
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
         try {
-            response.sendError(411,"自定义异常处理器"); // 之后会去 处理器中 处理 该异常 ，跳转对应的 异常页面 ErrorViewResolver
+            response.sendError(411, "自定义异常处理器"); // 之后会去 处理器中 处理 该异常 ，跳转对应的 异常页面 ErrorViewResolver
         } catch (IOException e) {
             e.printStackTrace();
         }

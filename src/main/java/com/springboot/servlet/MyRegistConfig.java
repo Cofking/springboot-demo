@@ -11,23 +11,23 @@ import org.springframework.context.annotation.Configuration;
 public class MyRegistConfig {
 
     @Bean
-    public ServletRegistrationBean<MyServlet> myServlet(){
+    public ServletRegistrationBean<MyServlet> myServlet() {
         MyServlet myServlet = new MyServlet();
-        return  new ServletRegistrationBean<>(myServlet,"/my","/my02");
+        return new ServletRegistrationBean<>(myServlet, "/my", "/my02");
     }
 
     @Bean
-    public FilterRegistrationBean<MyFilter> myFilter(){
-        MyFilter myFilter=new MyFilter();
+    public FilterRegistrationBean<MyFilter> myFilter() {
+        MyFilter myFilter = new MyFilter();
 
 //        return new FilterRegistrationBean<>(myFilter,myServlet());  //传递一个 servlet 过滤该servlet
         FilterRegistrationBean<MyFilter> filterRegistrationBean = new FilterRegistrationBean<>(myFilter);
-        filterRegistrationBean.addUrlPatterns("/my","/my02");  //自定义过滤路径
+        filterRegistrationBean.addUrlPatterns("/my", "/my02");  //自定义过滤路径
         return filterRegistrationBean;
     }
 
     @Bean
-    public ServletListenerRegistrationBean<MyListenner> myListener(){
+    public ServletListenerRegistrationBean<MyListenner> myListener() {
         MyListenner myListenner = new MyListenner();
         return new ServletListenerRegistrationBean<>(myListenner);
     }

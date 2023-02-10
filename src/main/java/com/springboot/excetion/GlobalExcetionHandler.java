@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExcetionHandler {
 
-    @ExceptionHandler({ArithmeticException.class,NullPointerException.class})
-    public ModelAndView handlerDIY(Exception e){
+    @ExceptionHandler({ArithmeticException.class, NullPointerException.class})
+    public ModelAndView handlerDIY(Exception e) {
 
-        ModelAndView mav=new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.setViewName("index");
-        mav.addObject("message",e);
+        mav.addObject("message", e);
         return mav;
     }
 }

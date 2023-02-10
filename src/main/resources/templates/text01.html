@@ -5,7 +5,7 @@
     <title>首页</title>
 </head>
 <body>
-<span ><img src="/img/latala.gif" onclick="f()" class="abc"></span> <img id="img" src="/" alt="点击龙猫"/>
+<span><img src="/img/latala.gif" onclick="f()" class="abc"></span> <img id="img" src="/" alt="点击龙猫"/>
 <h1 th:text="${Penson.name}"></h1>
 <h1 th:text="${Penson.age}"></h1>
 
@@ -20,30 +20,30 @@
     </h1>
 </div>
 
-    <label>市场：</label>
-    <select id="marketId" name="marketId"  style="width:150px" onchange="text1(value)"  >
-<!--        默认显示 数据-->
-        <option th:value="12346789"
+<label>市场：</label>
+<select id="marketId" name="marketId" style="width:150px" onchange="text1(value)">
+    <!--        默认显示 数据-->
+    <option th:value="12346789"
 
-                th:text="芜湖起飞">
-        </option>
-        <option th:each="market : ${map}" th:value="*{market.getKey()}"
-                th:selected=" *{market.getKey()} == 'name:2' "
-                th:text="*{market.getValue()}"></option>
-    </select><br/>
+            th:text="芜湖起飞">
+    </option>
+    <option th:each="market : ${map}" th:value="*{market.getKey()}"
+            th:selected=" *{market.getKey()} == 'name:2' "
+            th:text="*{market.getValue()}"></option>
+</select><br/>
 <a href="/car/zhangsan/flag/18/武汉?sex=gg&sex=mm&habbit=game">@PathVariable注解</a><br/>
 <a href=" /boss/boss1;age=12/emp2;age=11">@MatrixVariable 矩阵变量</a>
-<form action="rest" method="get" >
+<form action="rest" method="get">
     <input style="height: 100px;width: 100px" type="submit" value="get 请求"/>
 </form>
-<form action="rest" method="post" >
+<form action="rest" method="post">
     <input style="height: 100px;width: 100px" type="submit" value="post 请求"/>
 </form>
-<form action="rest" method="post" >
+<form action="rest" method="post">
     <input type="hidden" name="_m" value="delete">
     <input style="height: 100px;width: 100px" type="submit" value="delete 请求"/>
 </form>
-<form action="rest" method="post" >
+<form action="rest" method="post">
     <input type="hidden" name="_method" value="put">
     <input style="height: 100px;width: 100px" type="submit" value="put 请求"/>
 </form>
@@ -54,7 +54,7 @@
 </form>
 <form method="post" action="/upload" enctype="multipart/form-data">
     <input type="file" name="headerImg"><br>
-    <input type="file" name="photos" multiple>   多文件上传<br>
+    <input type="file" name="photos" multiple> 多文件上传<br>
     <input type="submit" value="提交">
 </form>
 </body>
@@ -63,13 +63,14 @@
     function text1(value) {
         console.log(value)
     }
+
     function f() {
         // alert('点我干嘛')
-        document.getElementById("img").src="/file";
+        document.getElementById("img").src = "/file";
     }
 </script>
 <style>
-    .abc{
-        cursor:pointer;
+    .abc {
+        cursor: pointer;
     }
 </style>

@@ -22,12 +22,14 @@ public class TextConfig {
 
     @Autowired
     TestInterceptorB testInterceptorB;
+
     /**
      * 自定义表单rest风格请求 时候 附带的自定义隐藏参数--该参数数值是请求的方式字符串 然后请求被HiddenHttpMethodFilter拦截
-      * @return
+     *
+     * @return
      */
     @Bean
-    public HiddenHttpMethodFilter hiddenHttpMethodFilter (){
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
 
         HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
         hiddenHttpMethodFilter.setMethodParam("_m");
@@ -35,7 +37,7 @@ public class TextConfig {
     }
 
     @Bean
-    public WebMvcConfigurer webMvcConfigurer(){
+    public WebMvcConfigurer webMvcConfigurer() {
 
 //        return new WebMvcConfigurer() {
 //            //自定义转换器  前端传过来的数据 根据自定义转换器 绑定数据
@@ -63,8 +65,6 @@ public class TextConfig {
         };
 
     }
-
-
 
 
 }
