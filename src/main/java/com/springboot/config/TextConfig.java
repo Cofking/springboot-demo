@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -55,13 +54,13 @@ public class TextConfig {
                 converters.add(new DIYMessageConverter());
             }
 
-            @Override
-            public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(testInterceptorA).addPathPatterns("/**") //拦截所有请求
-                        .excludePathPatterns("/img/**");//放行
-                registry.addInterceptor(testInterceptorB).addPathPatterns("/**") //拦截所有请求
-                        .excludePathPatterns("/img/**");//放行
-            }
+//            @Override
+//            public void addInterceptors(InterceptorRegistry registry) {
+//                registry.addInterceptor(testInterceptorA).addPathPatterns("/**") //拦截所有请求
+//                        .excludePathPatterns("/img/**");//放行
+//                registry.addInterceptor(testInterceptorB).addPathPatterns("/**") //拦截所有请求
+//                        .excludePathPatterns("/img/**");//放行
+//            }
         };
 
     }

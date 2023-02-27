@@ -5,7 +5,7 @@
     <title>首页</title>
 </head>
 <body>
-<span><img src="/img/latala.gif" onclick="f()" class="abc"></span> <img id="img" src="/" alt="点击龙猫"/>
+<span id="img"><img  src="/img/latala.gif" onclick="f()" class="abc"></span>
 <h1 th:text="${Penson.name}"></h1>
 <h1 th:text="${Penson.age}"></h1>
 
@@ -65,8 +65,13 @@
     }
 
     function f() {
-        // alert('点我干嘛')
-        document.getElementById("img").src = "/file";
+        var flag=45;
+       while(flag>0){
+           let img1 = document.createElement("img");
+           img1.src='/file';
+           document.getElementById("img").append(img1)
+           flag--;
+       }
     }
 </script>
 <style>
