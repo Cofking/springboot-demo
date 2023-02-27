@@ -5,6 +5,7 @@ server:
     include-exception: true
     include-stacktrace: always
     include-binding-errors: always
+
 spring:
   # 模板
   thymeleaf:
@@ -16,3 +17,19 @@ spring:
       media-types:   # 在 contentNegotiationManager 内容协商管理器中  参数解析策略中   添加新的 媒体类型  使  format=自定义类型   调用自定义  converter
         gg: application/x-guigu
       # 所以参数协商 可以使用   format=gg 来指定 使用 application/x-guigu 类型，去调用  application/x-guigu 的解析器 需要添加 进配置文件中。
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/test?useSSL=false
+      username: root
+      password: 123
+
+
+mybatis:
+  # 指定 MyBatis 的 XML 映射文件的位置，mapping/*Mapper.xml 表示 MyBatis 会去 resources/mapper 目录下查找所有以 Mapper 结尾的 xml 文件，作为映射文件。
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 扫描实体类的位置，在此处指明扫描实体类的包，在 mapper.xml 中就可以不写实体类的全路径名。
+#  type-aliases-package:
+  # 通常数据库列使用大写字母组成的单词命名，单词间用下划线分隔，而 Java 属性一般遵循驼峰命名法约定。为了在这两种命名方式之间启用自动映射，需要将 mapUnderscoreToCamelCase 设置为 true。
+  configuration:
+    map-underscore-to-camel-case: true
