@@ -4,6 +4,7 @@ import com.springboot.entity.A;
 import com.springboot.service.TextService;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +46,15 @@ public class TextController {
         List<Map<String, String>> map = textService.selectList();
         mod.addObject("map", map);
         return mod;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @RequestMapping("/add")
+    @ResponseBody
+    public int add(){
+        Integer i = textService.insertOne();
+        System.out.println(1/0);
+        return i;
     }
 
     @GetMapping("/text")
@@ -159,12 +169,6 @@ public class TextController {
         map.put("bossid", bossid);
         map.put("empid", empid);
         return map;
-    }
-
-
-    public static void main(String[] args) {
-
-
     }
 
     /**
