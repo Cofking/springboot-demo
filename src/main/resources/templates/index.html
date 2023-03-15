@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    @keyframes rotate {
+        0% {
+            transform: rotate(0)
+        }
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+    img{
+        animation: rotate 2s linear infinite
+    }
+</style>
 <body>
-<a href="/text">Hello word!</a><img src="/img/latala.gif">
+<a href="/text">Hello word!</a><img  src="/img/latala.gif">
 <b th:text="${message}"></b>
 <b th:text="${data}"></b><br>
 <b th:each="m:${map}">
