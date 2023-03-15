@@ -10,4 +10,5 @@ import java.util.Map;
 
 public interface TextService {
     List<Map<String, String>> selectList();
+    Integer insertOne();
 }

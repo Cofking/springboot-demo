@@ -1,11 +1,13 @@
 package com.springboot.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,10 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class TestInterceptorA implements HandlerInterceptor {
 
+    @Resource
+    RedisTemplate redisTemplate;
+
     //前置拦截  目标方法之前拦截
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        redisTemplate.opsForValue().set("Hello","word");
         String basic = request.getHeader("Basic");
         if (StringUtils.hasLength(basic)) {
             return true;

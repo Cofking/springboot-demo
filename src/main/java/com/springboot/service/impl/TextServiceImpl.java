@@ -21,4 +21,10 @@ public class TextServiceImpl implements TextService {
     public List<Map<String, String>> selectList() {
         return textMapper.selectList();
     }
+
+    @Override
+    public Integer insertOne() {
+
+        return textMapper.insertOne();
+    }
 }
