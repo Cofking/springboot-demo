@@ -5,7 +5,12 @@ server:
     include-exception: true
     include-stacktrace: always
     include-binding-errors: always
-
+  tomcat:
+    threads: #tomcat 默认线程池
+      max: 20 #最大线程数
+      min-spare: 10 #最小线程数
+    max-connections: 8192 #最大连接数
+    accept-count: 100 #队列
 spring:
   # 模板
   thymeleaf:
@@ -22,6 +27,14 @@ spring:
       url: jdbc:mysql://localhost:3306/test?useSSL=false
       username: root
       password: 123
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password: 123456
+    timeout: 10s
+
+
 
 
 mybatis:
@@ -33,3 +46,30 @@ mybatis:
   # 通常数据库列使用大写字母组成的单词命名，单词间用下划线分隔，而 Java 属性一般遵循驼峰命名法约定。为了在这两种命名方式之间启用自动映射，需要将 mapUnderscoreToCamelCase 设置为 true。
   configuration:
     map-underscore-to-camel-case: true
+
+# localhost:8080/actuator/端点
+# 指标监控 ，微服务中 监控所有服务指标  所有 actuator 的配置
+management:
+  endpoints:  # 配置所有指标行为
+    enabled-by-default: false # 暴露所有端点信息    false之后 可以指定暴露端点
+    web:  # 以 web 方式暴露
+      exposure:
+        include: '*'  # 暴露所有监控端点
+
+
+  endpoint: # 配置指定指标 具体行为
+
+    health: # 全部组件健康 才会返回健康
+      show-details: always
+      enabled: true
+
+    metrics:
+      enabled: true
+
+    caches:
+      enabled: true
+
+#      配置信息
+chenkang:
+#  上传路径
+  profile: E:/study/video

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>websocket通讯</title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+
+
+    function openSocket() {
+        for(let i=0;i<1000;i++){
+            let socket;
+            const socketUrl = "ws://localhost:8888/websocket/" +i;
+            console.log(socketUrl);
+            // if (socket != null) {
+            //     socket.close();
+            //     socket = null;
+            // }
+            socket = new WebSocket(socketUrl);
+            //打开事件
+            socket.onopen = function () {
+                console.log("websocket已打开");
+            };
+            //获得消息事件
+            socket.onmessage = function (msg) {
+                msg=JSON.parse(msg.data)
+                console.log(msg)
+                document.getElementById("id1").innerText =msg;
+                // "任务总数：" + msg.data.任务总数 + '\n'
+                // + "已完成任务：" + msg.data.已完成任务 + '\n'
+                // + "正在执行任务线程数量：" + msg.data.正在执行任务线程数量 + '\n'
+                // + "队列任务数：" + msg.data.队列任务数 + '\n'
+                // + "当前线程数量：" + msg.data.当前线程数量 + '\n'
+            };
+            //关闭事件
+            socket.onclose = function () {
+                console.log("websocket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function () {
+                console.log("websocket发生了错误");
+            }
+        }
+
+    }
+
+    function showThread() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "../showThread");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // console.log(xhr.responseText); //获得字符串的响应数据
+                //responseXML  //获得 XML 形式的响应数据
+                var data = JSON.parse(xhr.responseText);
+                let id1 = document.getElementById("id1");
+                console.log(data)
+                id1.innerText = "任务总数：" + data.data.任务总数 + '\n'
+                    + "已完成任务：" + data.data.已完成任务 + '\n'
+                    + "正在执行任务线程数量：" + data.data.正在执行任务线程数量 + '\n'
+                    + "队列任务数：" + data.data.队列任务数 + '\n'
+                    + "当前线程数量：" + data.data.当前线程数量 + '\n'
+
+
+            }
+        }
+    }
+
+    function doThread() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "../doThread");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+
+            }
+        }
+
+    }
+
+    function sendMessage() {
+
+        socket.send($("#contentText").val());
+
+    }
+</script>
+<body>
+<p>【socket开启者的ID信息】：
+<div><input id="userId" name="userId" type="text" value="10"></div>
+<p>【客户端向服务器发送的内容】：
+<div>
+    <input id="contentText" name="contentText" type="text" value="hello websocket"></div>
+<div>
+    <button onclick="openSocket()">开启socket</button>
+    <button onclick="sendMessage()">发送消息</button>
+    <button onclick="showThread()">展示工作</button>
+    <button onclick="doThread()">开始工作</button>
+</div>
+<div id="id1"></div>
+</body>
+
+</html>
