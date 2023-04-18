@@ -1,5 +1,8 @@
 package com.springboot.controller;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
 import com.springboot.entity.A;
 import com.springboot.service.TextService;
 import org.springframework.core.io.FileSystemResource;
@@ -23,8 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +58,9 @@ public class TextController {
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping("/add")
     @ResponseBody
-    public int add(){
+    public int add() {
         Integer i = textService.insertOne();
-        System.out.println(1/0);
+        System.out.println(1 / 0);
         return i;
     }
 
@@ -221,10 +228,49 @@ public class TextController {
                 }
             }
         }
-
-
+        ArrayList<String> arr = new ArrayList<>();
         return "success";
     }
 
+    /**
+     * 获取颜色
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/getColor")
+    @ResponseBody
+    public String color() throws IOException {
 
+        File file = new File("C:/color.ck");
+
+        if (!file.exists()) {
+            long l1 = System.currentTimeMillis();
+            String s = HttpUtil.get("http://zhongguose.com/colors.json");
+            long l2 = System.currentTimeMillis();
+            System.out.println("耗时：" + (l2 - l1));
+            long l3 = System.currentTimeMillis();
+            JSONArray array = JSONUtil.parseArray(s);
+            long l4 = System.currentTimeMillis();
+            System.out.println("耗时：" + (l4 - l3));
+
+            File parentFile = file.getParentFile();
+            parentFile.mkdirs();
+            file.createNewFile();
+            FileOutputStream os = new FileOutputStream(file);
+            os.write(array.toString().getBytes());
+            os.close();
+            return array.toString();
+        }
+        StringBuilder result = new StringBuilder();
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String s = null;
+        //使用readLine方法，一次读一行
+        while ((s = br.readLine()) != null) {
+            result.append(s);
+        }
+        br.close();
+
+        return result.toString();
+    }
 }

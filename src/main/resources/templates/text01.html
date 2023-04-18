@@ -2,10 +2,13 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title id="title">首页</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
+
+
 <body>
-<span id="img"><img  src="/img/latala.gif" onclick="f()" class="abc"></span>
+<span id="img"><img src="/img/latala.gif" onclick="f()" class="abc"></span>
 <h1 th:text="${Penson.name}"></h1>
 <h1 th:text="${Penson.age}"></h1>
 
@@ -57,25 +60,125 @@
     <input type="file" name="photos" multiple> 多文件上传<br>
     <input type="submit" value="提交">
 </form>
+<div>
+    <h1><span class="fontStyle" id="colorName"></span></h1>
+    <div id="showColor" class="fixed"></div>
+</div>
+<form action="/redis/save" method="get">
+    redis新增<input type="text" id="redisSaveKey" name="key" value=""/><input type="text" id="redisSaveValue" name="value"
+                                                                            value=""/>
+    <input type="button" VALUE="提交" onclick="redisAdd()">
+</form>
+<form action="/redis/get" method="get">
+    redis查询<input type="text" id="redisGetKey" name="key" value=""/>
+    <input type="button" VALUE="查询" onclick="redisGet()"></br>
+    redis结果<input type="text" id="redisResult">
+</form>
+
+
 </body>
 </html>
 <script>
+    var arr;
+    //控制标题闪烁
+    var flag=0;
+    window.onload = function () {
+        $.ajax({
+            type: "get",
+            url: "../getColor",
+            dataType: "text",
+            success: function (data) {
+                arr = JSON.parse(data);
+                let number = Math.floor(Math.random() * (arr.length));
+                var name = arr[number].name;
+                let color = arr[number].hex;
+                $("#showColor").css("backgroundColor", color);
+                // let body = document.body;
+                // body.style.backgroundColor = color;
+                $("#title").html("【"+name+"】");
+                // setInterval(function () {
+                //     if(flag==1){
+                //         $("#title").html("【"+name+"】");
+                //         flag=0;
+                //     }else{
+                //         $("#title").html("欢迎^_^");
+                //         flag++;
+                //     }
+                // },1000);
+                $("#colorName").css("color", color);
+                $("#colorName").html(name);
+            },
+            async: false,
+        });
+    }
+
     function text1(value) {
         console.log(value)
     }
 
     function f() {
-        var flag=45;
-       while(flag>0){
-           let img1 = document.createElement("img");
-           img1.src='/file';
-           document.getElementById("img").append(img1)
-           flag--;
-       }
+        var flag = 45;
+        while (flag > 0) {
+            let img1 = document.createElement("img");
+            img1.src = '/file';
+            document.getElementById("img").append(img1)
+            flag--;
+        }
     }
+
+    function redisAdd() {
+        $.ajax({
+            type: "get",
+            url: "../redis/save",
+            dataType: "text",
+            data: {
+                key: $("#redisSaveKey").val(),
+                value: $("#redisSaveValue").val(),
+            },
+            success: function (data) {
+            },
+            async: false,
+        });
+    }
+
+    function redisGet() {
+        $.ajax({
+            type: "get",
+            url: "../redis/get",
+            dataType: "text",
+            data: {
+                key: $("#redisGetKey").val(),
+            },
+            success: function (data) {
+                $("#redisResult").val(data);
+            },
+            async: false,
+        });
+    }
+
+
 </script>
 <style>
     .abc {
         cursor: pointer;
+    }
+
+    .fixed {
+        width: 300px;
+        height: 150px;
+        position: fixed;
+        margin-left: 30%;
+        top: 20%;
+    }
+
+    .fontStyle {
+        position: fixed;
+        margin-left: 30%;
+        top: 16%;
+    }
+
+
+    body {
+        background-color: #9abeaf; /* 草原远绿  */
     }
 </style>

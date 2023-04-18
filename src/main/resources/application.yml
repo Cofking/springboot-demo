@@ -5,18 +5,20 @@ server:
     include-exception: true
     include-stacktrace: always
     include-binding-errors: always
-  tomcat:
-    threads: #tomcat 默认线程池
-      max: 20 #最大线程数
-      min-spare: 10 #最小线程数
-    max-connections: 8192 #最大连接数
-    accept-count: 100 #队列
+#  tomcat:
+#    threads: #tomcat 默认线程池
+#      max: 20 #最大线程数
+#      min-spare: 10 #最小线程数
+#    max-connections: 8192 #最大连接数
+#    accept-count: 100 #队列
 spring:
   # 模板
   thymeleaf:
     mode: HTML5
     encoding: utf-8
   mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
     contentnegotiation:  #  内容协商管理器
       favor-parameter: true  #开启 请求 参数 内容协商模式  可以在 url后  传入 format= 类型  来 返回类型。
       media-types:   # 在 contentNegotiationManager 内容协商管理器中  参数解析策略中   添加新的 媒体类型  使  format=自定义类型   调用自定义  converter
@@ -28,14 +30,34 @@ spring:
       username: root
       password: 123
   redis:
-    host: localhost
-    port: 6379
-    database: 0
-    password: 123456
-    timeout: 10s
-
-
-
+#    host: 192.168.2.120
+#    port: 6378
+#    database: 0
+    password: 111111
+#    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+      cluster:
+        refresh:
+          # 支持集群拓扑动态感应刷新，自适应拓扑刷新是否使用所有可用的更新，默认 false
+          adaptive: true
+          # 定时刷新
+          period: 2000
+    cluster:
+      max-redirects: 5
+      nodes:
+       - 192.168.2.120:6381
+       - 192.168.2.120:6382
+       - 192.168.2.150:6383
+       - 192.168.2.150:6384
+       - 192.168.2.178:6385
+       - 192.168.2.178:6386
+       - 192.168.2.178:6387
+       - 192.168.2.178:6388
 
 mybatis:
   # 指定 MyBatis 的 XML 映射文件的位置，mapping/*Mapper.xml 表示 MyBatis 会去 resources/mapper 目录下查找所有以 Mapper 结尾的 xml 文件，作为映射文件。
@@ -46,6 +68,7 @@ mybatis:
   # 通常数据库列使用大写字母组成的单词命名，单词间用下划线分隔，而 Java 属性一般遵循驼峰命名法约定。为了在这两种命名方式之间启用自动映射，需要将 mapUnderscoreToCamelCase 设置为 true。
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl  #日志实现
 
 # localhost:8080/actuator/端点
 # 指标监控 ，微服务中 监控所有服务指标  所有 actuator 的配置
@@ -73,3 +96,12 @@ management:
 chenkang:
 #  上传路径
   profile: E:/study/video
+
+
+
+#日志
+logging: #更多配置 去springboot 官方查看 https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties
+  file: # 日志 文件路径和日志名称 logging.file.path 只可以设置日志文件路径  文件名称默认 spring.log
+    name: E:/study/logs/springboot.log
+  level: # 包路径下的 日志级别
+    com.springboot: debug
